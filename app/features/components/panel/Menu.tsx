@@ -1,24 +1,126 @@
+import { useState } from "react";
 import { Link } from "@remix-run/react";
-import { IconId, IconChevronUp } from "@tabler/icons-react";
+import { IconId, IconChevronUp, IconUser } from "@tabler/icons-react";
+
 export default function Menu() {
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
+
+  const handleMouseEnter = (menu: string) => {
+    setActiveMenu(menu);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveMenu(null);
+    setActiveSubMenu(null);
+  };
+
+  const handleSubMenuMouseEnter = (subMenu: string) => {
+    setActiveSubMenu(subMenu);
+  };
+
   return (
-    <div className="h-14 flex items-center">
+    <div className="h-14 flex items-center" onMouseLeave={handleMouseLeave}>
       <ul className="flex flex-row space-x-5 h-10">
-        <li className="h-10 group relative">
+        <li
+          className="h-10 relative"
+          onMouseEnter={() => handleMouseEnter("sistema")}
+        >
           <Link
             to=""
-            className="flex items-center space-x-2 h-10 cursor-pointer text-gray-700 hover:text-gray-500 ease-in duration-300"
+            className="flex items-center space-x-2 h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <IconId className="h-5" />
             <span className="text-sm">Sistema</span>
-            <IconChevronUp className="h-4 transform group-hover:rotate-180 ease-in duration-300" />
+            <IconChevronUp
+              className={
+                activeMenu === "sistema"
+                  ? "h-4 transform rotate-180 ease-in duration-300"
+                  : "h-4 transform ease-in duration-300"
+              }
+            />
           </Link>
-          <div className="absolute left-0  transform scale-0 group-hover:scale-100 transition-transform duration-300 bg-white border rounded shadow-sm  w-40 p-4">
-            <ul>
-              <li>Oi</li>
-              <li>Teste</li>
-            </ul>
-          </div>
+          {activeMenu === "sistema" && (
+            <div className="absolute left-0 transform scale-100 bg-white border rounded shadow-sm w-40 mr-1">
+              <ul className="flex flex-col">
+                <li
+                  className="h-10 relative group hover:bg-gray-100"
+                  onMouseEnter={() => handleSubMenuMouseEnter("usuarios")}
+                >
+                  <Link
+                    to=""
+                    className="flex items-center justify-between space-x-2 h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300"
+                  >
+                    <div className="flex flex-row space-x-2">
+                      <IconUser className="h-5" />
+                      <span className="text-sm">Usuários</span>
+                    </div>
+                    <IconChevronUp className="h-4 transform group-hover:rotate-90 ease-in duration-300" />
+                  </Link>
+
+                  {activeSubMenu === "usuarios" && (
+                    <div className="absolute -top-[1px] -right-[162px] transform scale-100 bg-white border rounded shadow-sm w-40">
+                      <ul className="flex flex-col">
+                        <li className="h-10 relative group hover:bg-gray-100">
+                          <Link
+                            to=""
+                            className="flex items-center justify-between h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300"
+                          >
+                            <div className="px-2">
+                              <span className="text-sm">Cadastro</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+
+                <li
+                  className="h-10 relative group hover:bg-gray-100"
+                  onMouseEnter={() => handleSubMenuMouseEnter("empresa")}
+                >
+                  <Link
+                    to=""
+                    className="flex items-center justify-between space-x-2 h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300"
+                  >
+                    <div className="flex flex-row space-x-2">
+                      <IconUser className="h-5" />
+                      <span className="text-sm">Empresa</span>
+                    </div>
+                    <IconChevronUp className="h-4 transform group-hover:rotate-90 ease-in duration-300" />
+                  </Link>
+
+                  {activeSubMenu === "empresa" && (
+                    <div className="absolute -top-[1px] -right-[162px] transform scale-100 bg-white border rounded shadow-sm w-40">
+                      <ul className="flex flex-col">
+                        <li className="h-10 relative group hover:bg-gray-100">
+                          <Link
+                            to=""
+                            className="flex items-center justify-between h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300"
+                          >
+                            <div className="px-2">
+                              <span className="text-sm">Cadastro</span>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="h-10 relative group hover:bg-gray-100">
+                          <Link
+                            to=""
+                            className="flex items-center justify-between h-10 cursor-pointer text-gray-500 hover:text-gray-700 ease-in duration-300"
+                          >
+                            <div className="px-2">
+                              <span className="text-sm">Listar</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+          )}
         </li>
       </ul>
     </div>

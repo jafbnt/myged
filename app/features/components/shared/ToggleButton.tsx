@@ -23,14 +23,14 @@ export default function ToggleButton() {
   };
   return (
     <>
-      <label className="relative inline-flex items-center cursor-pointer">
+      <label className="relative inline-flex items-center cursor-pointer ">
         <input
           defaultChecked={theme === "dark"}
           type="checkbox"
           className="sr-only peer"
           onClick={toggleTheme}
         />
-        <div className="flex justify-center w-11 h-6 bg-slate-800 text-gray-800  peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-gray-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-800 peer-checked:text-gray-700">
+        <div className="flex justify-center w-11 h-6 bg-slate-800 text-gray-800  peer-focus:outline-none rounded-full  peer  peer-checked:after:translate-x-full peer-checked:after:border-gray-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-200 dark:after:bg-gray-600 after:border-gray-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-200 peer-checked:border-gray-700 peer-checked:border-1 peer-checked:text-gray-200">
           <div
             className={`flex flex-row w-full ${
               theme === "light"
